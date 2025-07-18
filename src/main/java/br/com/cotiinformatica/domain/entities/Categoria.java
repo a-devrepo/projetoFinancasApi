@@ -14,4 +14,5 @@ public class Categoria {
 	@Id
 	private UUID id;
 	private String nome;
+	private UUID usuarioId;
 }
