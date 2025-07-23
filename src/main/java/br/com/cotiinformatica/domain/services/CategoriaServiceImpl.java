@@ -1,5 +1,6 @@
 package br.com.cotiinformatica.domain.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,7 +34,14 @@ public class CategoriaServiceImpl implements CategoriaService {
 	@Override
 	public List<CategoriaResponse> consultarCategorias(UUID usuarioId) {
 
-		return null;
+		var categorias = categoriaRepository.findAllByUsuarioId(usuarioId);
+
+		var response = new ArrayList<CategoriaResponse>();
+
+		for (var item : categorias) {
+			response.add(new CategoriaResponse(item.getId(), item.getNome()));
+		}
+		return response;
 	}
 
 }
