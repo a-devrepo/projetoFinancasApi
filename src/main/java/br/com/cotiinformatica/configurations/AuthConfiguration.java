@@ -1,24 +1,21 @@
 package br.com.cotiinformatica.configurations;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import br.com.cotiinformatica.components.JwtComponent;
 import br.com.cotiinformatica.filters.AuthenticationFilter;
 
 @Configuration
-public class AuthConfiguration {
-
-	@Value("${jwt.secretkey}")
-	private String jwtSecretkey;
+public class AuthConfiguration {	
 
 	@Bean
-	FilterRegistrationBean<AuthenticationFilter> authenticationFilter() {
+	FilterRegistrationBean<AuthenticationFilter> authenticationFilter(JwtComponent jwtComponent) {
 
 		FilterRegistrationBean<AuthenticationFilter> registration = new FilterRegistrationBean<>();
 
-		registration.setFilter(new AuthenticationFilter(jwtSecretkey));
+		registration.setFilter(new AuthenticationFilter(jwtComponent));
 
 		registration.addUrlPatterns("/api/*");
 
