@@ -1,11 +1,31 @@
 services:
 
+  projeto-financasapi-springboot:
+    container_name: financasapi-springboot
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    depends_on:
+      - mongodb
+    networks:
+      - financasapi-network
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongodb
+      SPRING_DATA_MONGODB_PORT: 27017
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      JWT_SECRETKEY: febe69f0-3e40-4e24-8bf7-4dbac44b1853
+
   mongodb:
     container_name: mongodb-projetoFinancasApp
     image: mongo:7.0
     restart: always
     ports:
       - "27018:27017"
+    networks:
+      - financasapi-network
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin123
@@ -14,3 +34,7 @@ services:
 
 volumes:
   mongodb_data:
+
+networks:
+  financasapi-network:
+    driver: bridge
