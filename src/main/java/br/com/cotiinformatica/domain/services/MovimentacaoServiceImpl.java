@@ -3,6 +3,8 @@ package br.com.cotiinformatica.domain.services;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import br.com.cotiinformatica.domain.dtos.MovimentacaoRequest;
 import br.com.cotiinformatica.domain.dtos.MovimentacaoResponse;
 import br.com.cotiinformatica.domain.entities.Movimentacao;
@@ -12,6 +14,8 @@ import br.com.cotiinformatica.domain.exceptions.MovimentacaoNaoEncontradaExcepti
 import br.com.cotiinformatica.repositories.CategoriaRepository;
 import br.com.cotiinformatica.repositories.MovimentacaoRepository;
 
+
+@Service
 public class MovimentacaoServiceImpl implements MovimentacaoService {
 
 	private MovimentacaoRepository movimentacaoRepository;
