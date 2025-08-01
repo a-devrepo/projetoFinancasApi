@@ -63,13 +63,34 @@ API RESTful para gerenciamento financeiro, com autenticação via JWT e persist�
 
 1. Instale [Docker](https://docs.docker.com/get-docker/) e [Docker Compose](https://docs.docker.com/compose/install/).
 
-2. Na raiz do projeto, execute:
+
+2. Clone o repositório:
+
+```bash
+git clone https://https://github.com/a-devrepo/projetoFinancasApi
+cd projetoFinancasApi
+```
+
+3. Na raiz do projeto, execute:
 
 ```bash
 docker-compose up --build
 ```
 
-3\. A documentação Swagger pode ser encontrada em: http://localhost:8084/swagger-ui.html
+3. A documentação Swagger pode ser encontrada em: http://localhost:8084/swagger-ui.html
+
+Uso do Token JWT na documentação Swagger
+
+O token JWT necessário para acessar os endpoints protegidos deve ser obtido através da API de usuários disponível no repositório:
+https://github.com/a-devrepo/projetoUsuariosApi
+
+## Como usar o token na interface Swagger:
+
+1. Obtenha o token JWT autenticando-se na API de usuários.
+
+2. Na interface do Swagger da API Finanças (em http://localhost:8084/swagger-ui.html), clique no botão Authorize no canto superior direito.
+
+3. No campo que aparecer, digite o token obtido na API de usuários
 
 ---
 
