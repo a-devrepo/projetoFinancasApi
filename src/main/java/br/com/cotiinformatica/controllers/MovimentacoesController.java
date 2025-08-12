@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cotiinformatica.domain.dtos.MovimentacaoRequest;
 import br.com.cotiinformatica.domain.dtos.MovimentacaoResponse;
 import br.com.cotiinformatica.domain.services.MovimentacaoService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/movimentacoes")
@@ -28,8 +29,9 @@ public class MovimentacoesController {
 	}
 
 	@PostMapping
-	public ResponseEntity<MovimentacaoResponse> post(@RequestBody MovimentacaoRequest request) {
-		var response = movimentacaoService.criarMovimentacao(request, null);
+	public ResponseEntity<MovimentacaoResponse> post(@RequestBody MovimentacaoRequest request, HttpServletRequest httpRequest) {
+		var usuarioId = (UUID) httpRequest.getAttribute("userId");
+		var response = movimentacaoService.criarMovimentacao(request, usuarioId);
 		return ResponseEntity.ok(response);
 	}
 

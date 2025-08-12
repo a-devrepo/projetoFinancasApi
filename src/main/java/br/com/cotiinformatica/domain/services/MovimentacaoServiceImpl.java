@@ -35,6 +35,7 @@ public class MovimentacaoServiceImpl implements MovimentacaoService {
 
 		var movimentacao = new Movimentacao();
 
+		movimentacao.setId(UUID.randomUUID());
 		movimentacao.setNome(request.nome());
 		movimentacao.setData(request.data());
 		movimentacao.setValor(request.valor());
