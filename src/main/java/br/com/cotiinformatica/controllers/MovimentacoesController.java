@@ -71,8 +71,9 @@ public class MovimentacoesController {
 	@PutMapping("/{id}")
 	public ResponseEntity<MovimentacaoResponse> put(
 			@Parameter(description = "ID da movimentação a ser alterada", required = true) @PathVariable UUID id,
-			@RequestBody MovimentacaoRequest request) {
-		var response = movimentacaoService.alterarMovimentacao(id, request, null);
+			@RequestBody MovimentacaoRequest request, HttpServletRequest httpRequest) {
+		var usuarioId = (UUID) httpRequest.getAttribute("userId");
+		var response = movimentacaoService.alterarMovimentacao(id, request, usuarioId);
 		return ResponseEntity.ok(response);
 	}
 
@@ -84,8 +85,10 @@ public class MovimentacoesController {
 			@ApiResponse(responseCode = "401", description = "Não autorizado", content = @Content) })
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(
-			@Parameter(description = "ID da movimentação a ser excluída", required = true) @PathVariable UUID id) {
-		var response = movimentacaoService.excluirMovimentacao(id, null);
+			@Parameter(description = "ID da movimentação a ser excluída", required = true) @PathVariable UUID id,
+			HttpServletRequest httpRequest) {
+		var usuarioId = (UUID) httpRequest.getAttribute("userId");
+		var response = movimentacaoService.excluirMovimentacao(id, usuarioId);
 		return ResponseEntity.ok(response);
 	}
 
@@ -98,8 +101,9 @@ public class MovimentacoesController {
 					content = @Content(schema = @Schema(implementation = MovimentacaoResponse.class))),
 			@ApiResponse(responseCode = "401", description = "Não autorizado", content = @Content),})
 	@GetMapping
-	public ResponseEntity<List<MovimentacaoResponse>> getAll() {
-		var response = movimentacaoService.consultarMovimentacoes(null);
+	public ResponseEntity<List<MovimentacaoResponse>> getAll(HttpServletRequest httpRequest) {
+		var usuarioId = (UUID) httpRequest.getAttribute("userId");
+		var response = movimentacaoService.consultarMovimentacoes(usuarioId);
 		return ResponseEntity.ok(response);
 	}
 }
