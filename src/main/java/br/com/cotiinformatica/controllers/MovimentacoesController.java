@@ -106,4 +106,22 @@ public class MovimentacoesController {
 		var response = movimentacaoService.consultarMovimentacoes(usuarioId);
 		return ResponseEntity.ok(response);
 	}
+	
+	@Operation(
+			summary = "Consulta de movimentação", 
+			description = "Retorna a movimentação cadastrada", 
+			responses = {
+			@ApiResponse(responseCode = "200", 
+					description = "Movimentação retornada com sucesso", 
+					content = @Content(schema = @Schema(implementation = MovimentacaoResponse.class))),
+			@ApiResponse(responseCode = "401", description = "Não autorizado", content = @Content),
+			@ApiResponse(responseCode = "404", description = "Movimentação não encontrada. Verifique o ID informado", content = @Content)})
+	@GetMapping("/{id}")
+	public ResponseEntity<MovimentacaoResponse> findById(@Parameter(
+			description = "ID da movimentação a ser consultada", required = true) @PathVariable UUID id
+			,HttpServletRequest httpRequest) {
+		var usuarioId = (UUID) httpRequest.getAttribute("userId");
+		var response = movimentacaoService.obterPorId(id, usuarioId);
+		return ResponseEntity.ok(response);
+	}
 }
