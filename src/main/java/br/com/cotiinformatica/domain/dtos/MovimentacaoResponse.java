@@ -10,8 +10,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record MovimentacaoResponse(
 		UUID id,
 		String nome,
-		@Schema(type = "string", example = "20/08/2025", description = "dd/MM/yyyy")
-		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+		@Schema(type = "string", example = "2025-08-20", description = "yyyy-MM-dd")
+		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 		LocalDate data,
 		Double valor,
 		String tipo,
